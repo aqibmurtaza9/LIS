@@ -1,0 +1,238 @@
+﻿
+@{
+    ViewBag.Title = "AddUser";
+}
+
+
+<script>
+
+    $(document).ready(function () {
+        
+        var Id = localStorage["Id"];
+
+        if (Id != null) {
+            debugger;
+            $.ajax({
+                url: '/Users/GetUserProfileById',
+                type: 'POST',
+                data: { Id: Id },
+                success: function (data) {
+                    debugger;
+
+                    var a = JSON.parse(data);
+                    console.log(a);
+                    $('#userId').append(a[0].Id);
+                    $('#firstName').val(a[0].FirstName);
+                    $('#lastName').val(a[0].LastName);
+                    $('#userName').val(a[0].UserName);
+                    $('#email').val(a[0].Email);
+                    $('#dptCode').val(a[0].DepartmentCode);
+                    $('#phoneNo').val(a[0].PhoneNo);
+                    $('#dptCode').val(a[0].DeptCode);
+                    $('#userType').val(a[0].UserType);
+                    $('#gender').val(a[0].Gender);
+                    $('#cnic').val(a[0].Cnic);
+
+                    if (a[0].AllowAuth == true) {
+                        console.log(a[0].AllowAuth)
+                        $('#allowAuth').prop('checked', true);
+                    }
+                    if (a[0].IsActive == true) {
+                        console.log(a[0].IsActive)
+                        $('#isActive').prop('checked', true)
+                    }
+
+
+                }
+
+            });
+
+        }
+
+        localStorage.removeItem("Id");
+
+
+        $('#myForm').on('submit', function (e) {
+            e.preventDefault();
+
+        debugger
+            var Id = $('#userId').text();
+            var FirstName = $('#firstName').val();
+            var LastName = $('#lastName').val();
+            var UserName = $('#userName').val();
+            var Email = $('#email').val();
+            var DepartmentCode = $('#dptCode option:selected').val();
+            var PhoneNo = $('#phoneNo').val();
+            var UserType = $('#userType option:selected').val();
+            var Gender = $('#gender option:selected').val();
+            var Cnic = $('#cnic').val();
+            var AllowAuth = $('#allowAuth').is(':checked');
+            var IsActive = $('#isActive').is(':checked');
+        debugger;
+            $.ajax({
+                url: 'https://localhost:44378/Users/AddUser',
+                type: 'POST',
+                data: {
+                    Id:Id,
+                    FirstName: FirstName,
+                    LastName: LastName,
+                    UserName: UserName,
+                    Email: Email,
+                    DepartmentCode: DepartmentCode,
+                    PhoneNo: PhoneNo,
+                    UserType: UserType,
+                    Gender: Gender,
+                    Cnic: Cnic,
+                    AllowAuth: AllowAuth,
+                    IsActive: IsActive
+                },
+                success: function (data) {
+
+                     Swal.fire({
+                        title: 'User Setup',
+                        text: "Successfully Saved!",
+                        icon: 'success',
+                     }).then(function (result) {
+                         location.reload();
+                    })
+                    
+                }
+
+            });
+
+           });
+    });
+
+    function writeText() {
+
+        var FFirstName = document.querySelector("#firstName");
+        var LLastName = document.querySelector("#lastName");
+        var UUserName = document.querySelector("#userName");
+
+        UUserName.value = FFirstName.value;
+
+        if (UUserName.value != '') {
+            UUserName.value += " " + LLastName.value;
+        }
+
+    }
+
+</script>
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            <div class="float-end">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="#">LIS</a>
+                    </li><!--end nav-item-->
+
+                    <li class="breadcrumb-item active">Add User</li>
+                </ol>
+            </div>
+            <h4 class="page-title">Add User</h4>
+        </div><!--end page-title-box-->
+    </div><!--end col-->
+</div>
+
+
+<div class="row">
+    <div class="col-12 col-lg-8 mx-auto">
+        <div class="card">
+            <div class="card-body">
+                <form class="needs-validation" id="myForm" novalidate>
+                    <div class="form-group mb-3">
+                        <img src="~/images/users/user-vector.png" alt="" class="thumb-lg rounded me-2">
+                        <label class="btn btn-de-primary btn-sm text-light">
+                            Add Avatar <input type="file" hidden>
+                        </label>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-6 mb-3">
+                        <label for="example-text-input" class="col-sm-2 col-form-label text-end">User ID: </label>
+                            <label class="form-check-label" id="userId"></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-6 mb-3">
+                            <input type="text" placeholder="First Name" class="form-control" name="First_Name" id="firstName" required onkeyup="return writeText()">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <input type="text" placeholder="Last Name" class="form-control" name="Last_Name" id="lastName" required onkeyup="return writeText()">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-6 mb-3">
+                            <input type="email" placeholder="UserName" class="form-control" name="userName" id="userName" disabled>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <input type="email" placeholder="Email" class="form-control" name="Email" id="email" required>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group row">
+                        <div class="col-md-3 mb-3">
+                            <input type="text" placeholder="Contact No." class="form-control" name="phoneNo" id="phoneNo" required>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <select class="form-select" id="gender" required>
+                                <option selected disabled>Gender...</option>
+                                <option value="1">Male</option>
+                                <option value="2">Female</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <input type="text" placeholder="CNIC" class="form-control" name="cnic" id="cnic" required>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+
+                        <div class="col-md-3 mb-3">
+                            <select class="form-select" id="dptCode" required>
+                                <option selected disabled >Department..</option>
+                                <option value="1">Dpt 01</option>
+                                <option value="2">Dpt 02</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3 mb-3">
+                            <select class="form-select" id="userType" required>
+                                <option selected disabled >User Type...</option>
+                                <option value="1">Admin</option>
+                                <option value="2">Manager</option>
+                                <option value="3">User</option>
+                                <option value="3">Guest</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="allowAuth" required>
+                            <label class="form-check-label" for="inlineCheckbox1">Allow Auth</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="isActive" required>
+                            <label class="form-check-label" for="inlineCheckbox2">IsActive</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-sm text-light px-4 mt-3 mb-0"  type="submit">Save</button>
+                        <button class="btn btn-danger btn-sm text-light px-4 mt-3 mb-0">Cancel</button>
+                    </div>
+                </form>
+            </div> <!--end card-body-->
+        </div><!--end card-->
+    </div> <!--end col-->
+</div><!--end row-->

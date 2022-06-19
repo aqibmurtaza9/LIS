@@ -1,0 +1,546 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8" />
+    <title>Laboratory Information System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="~/images/favicon.ico">
+
+    <link href="~/Scripts/plugins/dragula/dragula.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- App css -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/app.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Scripts/plugins/tabulator/bootstrap/tabulator_bootstrap4.css" rel="stylesheet" type="text/css" />
+
+
+    <!-- Datatables -->
+    @* <link href="~/Scripts/plugins/tabulator/bootstrap/tabulator_bootstrap4.css" rel="stylesheet" type="text/css" />*@
+
+    <!-- Datatables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+    <link href="../Content/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="../Content/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome datatable icon-->
+    <link href="../Content/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+
+    <link href="~/Scripts/plugins/sweet-alert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Scripts/plugins/animate/animate.min.css" rel="stylesheet" type="text/css">
+</head>
+
+
+<body id="body">
+    <!-- leftbar-tab-menu -->
+    <div class="leftbar-tab-menu">
+        <div class="main-icon-menu">
+            <a href="index.html" class="logo logo-metrica d-block text-center">
+                <span>
+                    @*<img src="~/images/logo-sm.png" alt="logo-small" class="logo-sm">*@
+                </span>
+            </a>
+            <div class="main-icon-menu-body">
+                <div class="position-reletive h-100" data-simplebar style="overflow-x: hidden;">
+                    <ul class="nav nav-tabs" role="tablist" id="tab-menu">
+                        <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Dashboard" data-bs-trigger="hover">
+                            <a href="#MetricaDashboard" id="dashboard-tab" class="nav-link">
+                                <i class="ti ti-smart-home menu-icon"></i>
+                            </a><!--end nav-link-->
+                        </li><!--end nav-item-->
+                        <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Setup" data-bs-trigger="hover">
+                            <a href="#MetricaSetup" id="apps-tab" class="nav-link">
+                                <i class="ti ti-apps menu-icon"></i>
+                            </a><!--end nav-link-->
+                        </li><!--end nav-item-->
+
+                        <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Transaction" data-bs-trigger="hover">
+                            <a href="#MetricaTransaction" id="pages-tab" class="nav-link">
+                                <i class="ti ti-files menu-icon"></i>
+                            </a><!--end nav-link-->
+                        </li><!--end nav-item-->
+
+                    </ul><!--end nav-->
+                </div><!--end /div-->
+            </div><!--end main-icon-menu-body-->
+            <div class="pro-metrica-end">
+                <a href="#" class="profile">
+                    <img src="~/images/users/user-4.jpg" alt="profile-user" class="rounded-circle thumb-sm">
+                </a>
+            </div><!--end pro-metrica-end-->
+        </div>
+        <!--end main-icon-menu-->
+
+        <div class="main-menu-inner">
+            <!-- LOGO -->
+            <div class="topbar-left">
+                <a href="index.html" class="logo">
+                    <span>
+                        <img src="~/images/logo-dark.png" alt="logo-large" class="logo-lg logo-dark">
+                        <img src="~/images/logo.png" alt="logo-large" class="logo-lg logo-light">
+                    </span>
+                </a><!--end logo-->
+            </div><!--end topbar-left-->
+            <!--end logo-->
+            <div class="menu-body navbar-vertical tab-content" data-simplebar>
+                <div id="MetricaDashboard" class="main-icon-menu-pane tab-pane" role="tabpanel"
+                     aria-labelledby="dasboard-tab">
+                    <div class="title-box">
+                        <h6 class="menu-title">Dashboard</h6>
+                    </div>
+
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("DashboardView", "Dashboard")">Admin Panels</a>
+                        </li><!--end nav-item-->
+                    </ul><!--end nav-->
+                </div><!-- end Dashboards -->
+
+                <div id="MetricaSetup" class="main-icon-menu-pane tab-pane" role="tabpanel" aria-labelledby="apps-tab">
+                    <div class="title-box">
+                        <h6 class="menu-title">Setup</h6>
+                    </div>
+
+                    <!-- Navigation -->
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("UserList", "Users")">User Setup</a>
+                                </li><!--end nav-item-->
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("CustomSetupList", "CustomSetup")">Custom Setup</a>
+                                </li><!--end nav-item-->
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("LaboratorySetupList", "LaboratorySetup")">Laboratory Setup</a>
+                                </li><!--end nav-item-->
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("ParameterList", "ParameterSetup")">Parameter Setup</a>
+                                </li><!--end nav-item-->
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("PatientList", "Patient")">Patient Setup</a>
+                                </li><!--end nav-item-->
+                                <li class="nav-item">
+                                    <a class="nav-link" href="hospital-patient-profile.html">Lab Request</a>
+                                </li><!--end nav-item-->
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("TestSetupList", "TestSetup")">Test Setup</a>
+                                </li><!--end nav-item-->
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("SubSectionList", "SubSection")">Sub Section</a>
+                                </li><!--end nav-item-->
+                            </ul>
+                        </li>
+                    </ul><!--end nav-->
+                </div><!-- end Setup -->
+
+
+                <div id="MetricaTransaction" class="main-icon-menu-pane tab-pane" role="tabpanel" aria-labelledby="pages-tab">
+                    <div class="title-box">
+                        <h6 class="menu-title">Pages</h6>
+                    </div>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="pages-profile.html">Profile</a>
+                        </li><!--end nav-item-->
+                        <li class="nav-item">
+                            <a class="nav-link" href="pages-tour.html">Tour</a>
+                        </li><!--end nav-item-->
+                        <li class="nav-item">
+                            <a class="nav-link" href="pages-timeline.html">Timeline</a>
+                        </li><!--end nav-item-->
+                        <li class="nav-item">
+                            <a class="nav-link" href="pages-treeview.html">Treeview</a>
+                        </li><!--end nav-item-->
+                        <li class="nav-item">
+                            <a class="nav-link" href="pages-starter.html">Starter Page</a>
+                        </li><!--end nav-item-->
+                        <li class="nav-item">
+                            <a class="nav-link" href="pages-pricing.html">Pricing</a>
+                        </li><!--end nav-item-->
+                        <li class="nav-item">
+                            <a class="nav-link" href="pages-blogs.html">Blogs</a>
+                        </li><!--end nav-item-->
+                        <li class="nav-item">
+                            <a class="nav-link" href="pages-faq.html">FAQs</a>
+                        </li><!--end nav-item-->
+                        <li class="nav-item">
+                            <a class="nav-link" href="pages-gallery.html">Gallery</a>
+                        </li><!--end nav-item-->
+                    </ul><!--end nav-->
+                </div><!-- end Transaction -->
+
+            </div>
+            <!--end menu-body-->
+        </div><!-- end main-menu-inner-->
+    </div>
+    <!-- end leftbar-tab-menu-->
+    <!-- Top Bar Start -->
+    <div class="topbar">
+        <!-- Navbar -->
+        <nav class="navbar-custom" id="navbar-custom">
+            <ul class="list-unstyled topbar-nav float-end mb-0">
+                <li class="dropdown">
+                    <a class="nav-link dropdown-toggle arrow-none nav-icon" data-bs-toggle="dropdown" href="#" role="button"
+                       aria-haspopup="false" aria-expanded="false">
+                        <img src="~/images/flags/us_flag.jpg" alt="" class="thumb-xxs rounded-circle">
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#"><img src="~/images/flags/us_flag.jpg" alt="" height="15" class="me-2">English</a>
+                        <a class="dropdown-item" href="#"><img src="~/images/flags/spain_flag.jpg" alt="" height="15" class="me-2">Spanish</a>
+                        <a class="dropdown-item" href="#"><img src="~/images/flags/germany_flag.jpg" alt="" height="15" class="me-2">German</a>
+                        <a class="dropdown-item" href="#"><img src="~/images/flags/french_flag.jpg" alt="" height="15" class="me-2">French</a>
+                    </div>
+                </li><!--end topbar-language-->
+
+                <li class="dropdown notification-list">
+                    <a class="nav-link dropdown-toggle arrow-none nav-icon" data-bs-toggle="dropdown" href="#" role="button"
+                       aria-haspopup="false" aria-expanded="false">
+                        <i class="ti ti-mail"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end dropdown-lg pt-0">
+
+                        <h6 class="dropdown-item-text font-15 m-0 py-3 border-bottom d-flex justify-content-between align-items-center">
+                            Emails <span class="badge bg-soft-primary badge-pill">3</span>
+                        </h6>
+                        <div class="notification-menu" data-simplebar>
+                            <!-- item-->
+                            <a href="#" class="dropdown-item py-3">
+                                <small class="float-end text-muted ps-2">2 min ago</small>
+                                <div class="media">
+                                    <div class="avatar-md bg-soft-primary">
+                                        <img src="~/images/users/user-1.jpg" alt="" class="thumb-sm rounded-circle">
+                                    </div>
+                                    <div class="media-body align-self-center ms-2 text-truncate">
+                                        <h6 class="my-0 fw-normal text-dark">Your order is placed</h6>
+                                        <small class="text-muted mb-0">Dummy text of the printing and industry.</small>
+                                    </div><!--end media-body-->
+                                </div><!--end media-->
+                            </a><!--end-item-->
+                            <!-- item-->
+                            <a href="#" class="dropdown-item py-3">
+                                <small class="float-end text-muted ps-2">10 min ago</small>
+                                <div class="media">
+                                    <div class="avatar-md bg-soft-primary">
+                                        <img src="~/images/users/user-4.jpg" alt="" class="thumb-sm rounded-circle">
+                                    </div>
+                                    <div class="media-body align-self-center ms-2 text-truncate">
+                                        <h6 class="my-0 fw-normal text-dark">Meeting with designers</h6>
+                                        <small class="text-muted mb-0">It is a long established fact that a reader.</small>
+                                    </div><!--end media-body-->
+                                </div><!--end media-->
+                            </a><!--end-item-->
+                            <!-- item-->
+                            <a href="#" class="dropdown-item py-3">
+                                <small class="float-end text-muted ps-2">40 min ago</small>
+                                <div class="media">
+                                    <div class="avatar-md bg-soft-primary">
+                                        <img src="~/images/users/user-2.jpg" alt="" class="thumb-sm rounded-circle">
+                                    </div>
+                                    <div class="media-body align-self-center ms-2 text-truncate">
+                                        <h6 class="my-0 fw-normal text-dark">UX 3 Task complete.</h6>
+                                        <small class="text-muted mb-0">Dummy text of the printing.</small>
+                                    </div><!--end media-body-->
+                                </div><!--end media-->
+                            </a><!--end-item-->
+                            <!-- item-->
+                            <a href="#" class="dropdown-item py-3">
+                                <small class="float-end text-muted ps-2">1 hr ago</small>
+                                <div class="media">
+                                    <div class="avatar-md bg-soft-primary">
+                                        <img src="~/images/users/user-5.jpg" alt="" class="thumb-sm rounded-circle">
+                                    </div>
+                                    <div class="media-body align-self-center ms-2 text-truncate">
+                                        <h6 class="my-0 fw-normal text-dark">Your order is placed</h6>
+                                        <small class="text-muted mb-0">It is a long established fact that a reader.</small>
+                                    </div><!--end media-body-->
+                                </div><!--end media-->
+                            </a><!--end-item-->
+                            <!-- item-->
+                            <a href="#" class="dropdown-item py-3">
+                                <small class="float-end text-muted ps-2">2 hrs ago</small>
+                                <div class="media">
+                                    <div class="avatar-md bg-soft-primary">
+                                        <img src="~/images/users/user-3.jpg" alt="" class="thumb-sm rounded-circle">
+                                    </div>
+                                    <div class="media-body align-self-center ms-2 text-truncate">
+                                        <h6 class="my-0 fw-normal text-dark">Payment Successfull</h6>
+                                        <small class="text-muted mb-0">Dummy text of the printing.</small>
+                                    </div><!--end media-body-->
+                                </div><!--end media-->
+                            </a><!--end-item-->
+                        </div>
+                        <!-- All-->
+                        <a href="javascript:void(0);" class="dropdown-item text-center text-primary">
+                            View all <i class="fi-arrow-right"></i>
+                        </a>
+                    </div>
+                </li>
+
+                <li class="dropdown notification-list">
+                    <a class="nav-link dropdown-toggle arrow-none nav-icon" data-bs-toggle="dropdown" href="#" role="button"
+                       aria-haspopup="false" aria-expanded="false">
+                        <i class="ti ti-bell"></i>
+                        <span class="alert-badge"></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end dropdown-lg pt-0">
+
+                        <h6 class="dropdown-item-text font-15 m-0 py-3 border-bottom d-flex justify-content-between align-items-center">
+                            Notifications <span class="badge bg-soft-primary badge-pill">2</span>
+                        </h6>
+                        <div class="notification-menu" data-simplebar>
+                            <!-- item-->
+                            <a href="#" class="dropdown-item py-3">
+                                <small class="float-end text-muted ps-2">2 min ago</small>
+                                <div class="media">
+                                    <div class="avatar-md bg-soft-primary">
+                                        <i class="ti ti-chart-arcs"></i>
+                                    </div>
+                                    <div class="media-body align-self-center ms-2 text-truncate">
+                                        <h6 class="my-0 fw-normal text-dark">Your order is placed</h6>
+                                        <small class="text-muted mb-0">Dummy text of the printing and industry.</small>
+                                    </div><!--end media-body-->
+                                </div><!--end media-->
+                            </a><!--end-item-->
+                            <!-- item-->
+                            <a href="#" class="dropdown-item py-3">
+                                <small class="float-end text-muted ps-2">10 min ago</small>
+                                <div class="media">
+                                    <div class="avatar-md bg-soft-primary">
+                                        <i class="ti ti-device-computer-camera"></i>
+                                    </div>
+                                    <div class="media-body align-self-center ms-2 text-truncate">
+                                        <h6 class="my-0 fw-normal text-dark">Meeting with designers</h6>
+                                        <small class="text-muted mb-0">It is a long established fact that a reader.</small>
+                                    </div><!--end media-body-->
+                                </div><!--end media-->
+                            </a><!--end-item-->
+                            <!-- item-->
+                            <a href="#" class="dropdown-item py-3">
+                                <small class="float-end text-muted ps-2">40 min ago</small>
+                                <div class="media">
+                                    <div class="avatar-md bg-soft-primary">
+                                        <i class="ti ti-diamond"></i>
+                                    </div>
+                                    <div class="media-body align-self-center ms-2 text-truncate">
+                                        <h6 class="my-0 fw-normal text-dark">UX 3 Task complete.</h6>
+                                        <small class="text-muted mb-0">Dummy text of the printing.</small>
+                                    </div><!--end media-body-->
+                                </div><!--end media-->
+                            </a><!--end-item-->
+                            <!-- item-->
+                            <a href="#" class="dropdown-item py-3">
+                                <small class="float-end text-muted ps-2">1 hr ago</small>
+                                <div class="media">
+                                    <div class="avatar-md bg-soft-primary">
+                                        <i class="ti ti-drone"></i>
+                                    </div>
+                                    <div class="media-body align-self-center ms-2 text-truncate">
+                                        <h6 class="my-0 fw-normal text-dark">Your order is placed</h6>
+                                        <small class="text-muted mb-0">It is a long established fact that a reader.</small>
+                                    </div><!--end media-body-->
+                                </div><!--end media-->
+                            </a><!--end-item-->
+                            <!-- item-->
+                            <a href="#" class="dropdown-item py-3">
+                                <small class="float-end text-muted ps-2">2 hrs ago</small>
+                                <div class="media">
+                                    <div class="avatar-md bg-soft-primary">
+                                        <i class="ti ti-users"></i>
+                                    </div>
+                                    <div class="media-body align-self-center ms-2 text-truncate">
+                                        <h6 class="my-0 fw-normal text-dark">Payment Successfull</h6>
+                                        <small class="text-muted mb-0">Dummy text of the printing.</small>
+                                    </div><!--end media-body-->
+                                </div><!--end media-->
+                            </a><!--end-item-->
+                        </div>
+                        <!-- All-->
+                        <a href="javascript:void(0);" class="dropdown-item text-center text-primary">
+                            View all <i class="fi-arrow-right"></i>
+                        </a>
+                    </div>
+                </li>
+
+                <li class="dropdown">
+                    <a class="nav-link dropdown-toggle nav-user" data-bs-toggle="dropdown" href="#" role="button"
+                       aria-haspopup="false" aria-expanded="false">
+                        <div class="d-flex align-items-center">
+                            <img src="~/images/users/user-4.jpg" alt="profile-user" class="rounded-circle me-2 thumb-sm" />
+                            <div>
+                                <small class="d-none d-md-block font-11">Admin</small>
+                                <span class="d-none d-md-block fw-semibold font-12">
+                                    Maria Gibson <i class="mdi mdi-chevron-down"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <a class="dropdown-item" href="#"><i class="ti ti-user font-16 me-1 align-text-bottom"></i> Profile</a>
+                        <a class="dropdown-item" href="#"><i class="ti ti-settings font-16 me-1 align-text-bottom"></i> Settings</a>
+                        <div class="dropdown-divider mb-0"></div>
+                        <a class="dropdown-item" href="#"><i class="ti ti-power font-16 me-1 align-text-bottom"></i> Logout</a>
+                    </div>
+                </li><!--end topbar-profile-->
+                <li class="notification-list">
+                    <a class="nav-link arrow-none nav-icon offcanvas-btn" href="#" data-bs-toggle="offcanvas" data-bs-target="#Appearance" role="button" aria-controls="Rightbar">
+                        <i class="ti ti-settings ti-spin"></i>
+                    </a>
+                </li>
+            </ul><!--end topbar-nav-->
+
+            <ul class="list-unstyled topbar-nav mb-0">
+                <li>
+                    <button class="nav-link button-menu-mobile nav-icon" id="togglemenu">
+                        <i class="ti ti-menu-2"></i>
+                    </button>
+                </li>
+                <li class="hide-phone app-search">
+                    <form role="search" action="#" method="get">
+                        <input type="search" name="search" class="form-control top-search mb-0" placeholder="Type text...">
+                        <button type="submit"><i class="ti ti-search"></i></button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+        <!-- end navbar-->
+    </div>
+    <!-- Top Bar End -->
+    <!-- start page-wrapper -->
+    <div class="page-wrapper">
+
+        <!-- Page Content-->
+        <div class="page-content-tab">
+
+            <div class="container-fluid">
+
+                @RenderBody()
+
+            </div><!-- container -->
+            <!--Start Rightbar-->
+            <!--Start Rightbar/offcanvas-->
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="Appearance" aria-labelledby="AppearanceLabel">
+                <div class="offcanvas-header border-bottom">
+                    <h5 class="m-0 font-14" id="AppearanceLabel">Appearance</h5>
+                    <button type="button" class="btn-close text-reset p-0 m-0 align-self-center" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <h6>Account Settings</h6>
+                    <div class="p-2 text-start mt-3">
+                        <div class="form-check form-switch mb-2">
+                            <input class="form-check-input" type="checkbox" id="settings-switch1">
+                            <label class="form-check-label" for="settings-switch1">Auto updates</label>
+                        </div><!--end form-switch-->
+                        <div class="form-check form-switch mb-2">
+                            <input class="form-check-input" type="checkbox" id="settings-switch2" checked>
+                            <label class="form-check-label" for="settings-switch2">Location Permission</label>
+                        </div><!--end form-switch-->
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="settings-switch3">
+                            <label class="form-check-label" for="settings-switch3">Show offline Contacts</label>
+                        </div><!--end form-switch-->
+                    </div><!--end /div-->
+                    <h6>General Settings</h6>
+                    <div class="p-2 text-start mt-3">
+                        <div class="form-check form-switch mb-2">
+                            <input class="form-check-input" type="checkbox" id="settings-switch4">
+                            <label class="form-check-label" for="settings-switch4">Show me Online</label>
+                        </div><!--end form-switch-->
+                        <div class="form-check form-switch mb-2">
+                            <input class="form-check-input" type="checkbox" id="settings-switch5" checked>
+                            <label class="form-check-label" for="settings-switch5">Status visible to all</label>
+                        </div><!--end form-switch-->
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="settings-switch6">
+                            <label class="form-check-label" for="settings-switch6">Notifications Popup</label>
+                        </div><!--end form-switch-->
+                    </div><!--end /div-->
+                </div><!--end offcanvas-body-->
+            </div>
+            <!--end Rightbar/offcanvas-->
+            <!--end Rightbar-->
+            <!--Start Footer-->
+            <!-- Footer Start -->
+            <footer class="footer text-center text-sm-start">
+                &copy;
+                <script>
+                    document.write(new Date().getFullYear())
+                </script> Metrica <span class="text-muted d-none d-sm-inline-block float-end">
+                    Crafted with <i class="mdi mdi-heart text-danger"></i> by Mannatthemes
+                </span>
+            </footer>
+            <!-- end Footer -->
+            <!--end footer-->
+        </div>
+        <!-- end page content -->
+    </div>
+
+    <!-- end page-wrapper -->
+
+
+
+</body>
+
+
+</html>
+
+<!-- Javascript  -->
+<script src="~/Scripts/plugins/dragula/dragula.min.js"></script>
+<script src="~/Scripts/pages/dragula.init.js"></script>
+
+
+<!-- App js -->
+<script src="~/Scripts/app.js"></script>
+<script src="~/Scripts/pages/form-validation.js"></script>
+
+
+<!-- Datatables -->
+@*<script src="~/Scripts/plugins/tabulator/tabulator.min.js"></script>
+    <script src="~/Scripts/plugins/tabulator/jspdf.min.js"></script>
+    <script src="~/Scripts/plugins/tabulator/xlsx.full.min.js"></script>
+    <script src="~/Scripts/plugins/tabulator/jspdf.plugin.autotable.js"></script>
+    <script src="~/Scripts/pages/datatable.init.js"></script>*@
+
+
+<!--Jquery Datatables -->
+<script src="../Content/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="../Content/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="../Content/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="../Content/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+<script src="../Content/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="../Content/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="../Content/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="../Content/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+<script src="../Content/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+<script src="../Content/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="../Content/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+<script src="../Content/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+<script src="../Content/vendors/jszip/dist/jszip.min.js"></script>
+<script src="../Content/vendors/pdfmake/build/pdfmake.min.js"></script>
+<script src="../Content/vendors/pdfmake/build/vfs_fonts.js"></script>
+
+<script src="~/Scripts/plugins/sweet-alert2/sweetalert2.min.js"></script>
+<script src="~/Scripts/pages/sweet-alert.init.js"></script>
+
+<script>
+    $('document').ready(function () {
+        $("#apps-tab").click();
+        /*  $("#togglemenu").click();*/
+
+
+        document.body.classList.toggle('enlarge-menu');
+    });
+</script>

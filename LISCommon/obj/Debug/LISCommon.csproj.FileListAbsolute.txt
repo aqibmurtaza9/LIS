@@ -1,0 +1,6 @@
+D:\LIS\LISCommon\bin\Debug\LISCommon.dll
+D:\LIS\LISCommon\bin\Debug\LISCommon.pdb
+D:\LIS\LISCommon\obj\Debug\LISCommon.csproj.AssemblyReference.cache
+D:\LIS\LISCommon\obj\Debug\LISCommon.csproj.CoreCompileInputs.cache
+D:\LIS\LISCommon\obj\Debug\LISCommon.dll
+D:\LIS\LISCommon\obj\Debug\LISCommon.pdb

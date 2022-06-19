@@ -1,0 +1,9 @@
+D:\LIS\LISBusiness\bin\Debug\LISBusiness.dll
+D:\LIS\LISBusiness\bin\Debug\LISBusiness.pdb
+D:\LIS\LISBusiness\obj\Debug\LISBusiness.csproj.AssemblyReference.cache
+D:\LIS\LISBusiness\obj\Debug\LISBusiness.csproj.CoreCompileInputs.cache
+D:\LIS\LISBusiness\obj\Debug\LISBusiness.dll
+D:\LIS\LISBusiness\obj\Debug\LISBusiness.pdb
+D:\LIS\LISBusiness\bin\Debug\LISCommon.dll
+D:\LIS\LISBusiness\bin\Debug\LISCommon.pdb
+D:\LIS\LISBusiness\obj\Debug\LISBusiness.csproj.CopyComplete
