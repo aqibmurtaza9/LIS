@@ -29,7 +29,6 @@ namespace LIS.Controllers
         public JsonResult AddUser(string Id, string FirstName, string LastName, string UserName, string Email, string DepartmentCode, string PhoneNo, string Gender, string Cnic, string UserType,
                                        string AllowAuth, string IsActive, string IsDeleted)
         {
-
             UserManager m = new UserManager();
             m.Id = Id;
             m.FirstName = FirstName;
@@ -47,8 +46,6 @@ namespace LIS.Controllers
             m.UserRegistration();
             return Json("ok", JsonRequestBehavior.AllowGet);
         }
-
-       
 
         [HttpGet]
         public JsonResult GetUserProfileList()

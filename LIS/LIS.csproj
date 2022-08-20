@@ -137,6 +137,7 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LaboratorySetupController.cs" />
+    <Compile Include="Controllers\LabRequestController.cs" />
     <Compile Include="Controllers\ParameterSetupController.cs" />
     <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="Controllers\ResultEntryController.cs" />
@@ -4029,6 +4030,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Views\AccountAuth\" />
+    <Folder Include="Views\Base\" />
     <Folder Include="Views\ResultEntry\" />
   </ItemGroup>
   <ItemGroup>
@@ -5092,6 +5094,7 @@
     <Content Include="Views\TestSetup\TestSetupList.cshtml" />
     <Content Include="Views\SubSection\SubSectionList.cshtml" />
     <Content Include="Views\LaboratorySetup\LaboratorySetupList.cshtml" />
+    <Content Include="Views\LabRequest\LabRequestList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LISBusiness\LISBusiness.csproj">

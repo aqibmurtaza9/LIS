@@ -63,8 +63,6 @@ namespace LIS.Controllers
             obj.Description = Description;
             obj.MasterId = MasterId;
             obj.IsActive = IsActive;
-            //m.IsDeleted = IsDeleted;
-
             var a = obj.CustomSetupUpdate();
             return Json(a, JsonRequestBehavior.AllowGet); ;
         }
@@ -89,9 +87,5 @@ namespace LIS.Controllers
 
             return Json(a, JsonRequestBehavior.AllowGet);
         }
-
-
-
-
     }
 }

@@ -3,6 +3,260 @@
     ViewBag.Title = "ParameterList";
 }
 
+<script>
+    $(document).ready(function () {
+
+        debugger;
+        $('#table').DataTable({
+            responsive: true,
+            "ajax": 'https://localhost:44378/ParameterSetup/ParameterSetupRead',
+            "dataSrc": '',
+            "columns": [
+
+                { "data": "Id", className: "text-center" },
+                { "data": "TestCode", className: "text-center" },
+                { "data": "ParameterName", className: "text-center" },
+                { "data": "ParameterType", className: "text-center" },
+                { "data": "Unit", className: "text-center" },
+                { "data": "Range", className: "text-center" },
+                { "data": "IsActive", className: "text-center" },
+                { "data": "Action", className: "text-center" }
+            ],
+
+            dom: 'Bflrtip',
+            buttons: [
+                {
+                    extend: 'copyHtml5',
+                    text: '<i class="fa fa-files-o hoverback" style="color:blue;font-size: 20px;"></i>',
+                    titleAttr: 'Copy'
+                },
+                {
+                    extend: 'excelHtml5',
+                    text: '<i class="fa fa-file-excel-o hoverback" style="color:green;font-size: 20px;"></i>',
+                    titleAttr: 'Excel'
+                },
+                {
+                    extend: 'csvHtml5',
+                    text: '<i class="fa fa-file-text-o hoverback" style="color:purple;font-size: 20px;"></i>',
+                    titleAttr: 'CSV'
+                },
+                {
+                    extend: 'pdfHtml5',
+                    text: '<i class="fa fa-file-pdf-o hoverback" style="color:red;font-size: 20px;"></i>',
+                    titleAttr: 'PDF'
+                }
+            ]
+
+
+        });
+
+    });
+
+    function Update() {
+        console.log("update");
+        var paramSetupId = $('#paramSetupId').val();
+
+        var testCode = $("#testCode").val(); //get selected custom setup parent value
+        var parameterName = $('#parameterName').val();
+        var parameterType = $('#parameterType').find('option:selected').text();
+        var unit = $('#unit').val();
+        var range = $('#range').val();
+        var isActive = $('#isActive').is(':checked');
+
+        //with edit
+        if (paramSetupId == '') {
+            debugger;
+            $.ajax({
+                url: 'https://localhost:44378/ParameterSetup/ParameterSetupUpdate',
+                type: 'POST',
+                data: {
+                    Id: paramSetupId,
+                    TestCode: testCode,
+                    ParameterName: parameterName,
+                    ParameterType: parameterType,
+                    Unit: unit,
+                    Range: range,
+                    IsActive: isActive
+
+                },
+                success: function (data) {
+
+                    Swal.fire(
+                        'Registered!',
+                        'Your record has been registered!',
+                        'success'
+                    ).then(function (get) {
+                        if (get.isConfirmed) {
+                            location.reload();
+                        }
+                    });
+                },
+                error: function () {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        ':)',
+                        'error'
+                    )
+                }
+
+            });
+        }
+
+        //new entry
+        else {
+            debugger;
+            $.ajax({
+                url: 'https://localhost:44378/ParameterSetup/ParameterSetupUpdate',
+                type: 'POST',
+                data: {
+                    Id: paramSetupId,
+                    TestCode: testCode,
+                    ParameterName: parameterName,
+                    ParameterType: parameterType,
+                    Unit: unit,
+                    Range: range,
+                    IsActive: isActive
+
+                },
+                success: function (data) {
+                    Swal.fire(
+                        'Updated!',
+                        'Your record has been updated!',
+                        'success'
+                    ).then(function (get) {
+                        if (get.isConfirmed) {
+                            location.reload();
+                        }
+                    });
+                },
+                error: function () {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        ':)',
+                        'error'
+                    )
+                }
+
+            });
+        }
+
+    }
+
+    function Edit(a) {
+        debugger;
+        localStorage["paramSetupId"] = a;
+        $('#addNew').click();
+    }
+
+    async function EditCustomSetup() {
+
+        var Id = localStorage["paramSetupId"];
+        if (Id != null) {
+            debugger;
+            await $.ajax({
+                url: 'https://localhost:44378/ParameterSetup/ParameterSetupReadById',
+                type: 'POST',
+                data: { Id: Id },
+                success: function (data) {
+                    debugger;
+                    var a = JSON.parse(data);
+                    $('#paramSetupId').val(a[0].Id);
+                    $('#testCode').find('option:selected').text(a[0].TestCode);
+                    $('#parameterName').val(a[0].ParameterName);
+                    $('#parameterType').find('option:selected').text(a[0].ParameterType);
+                    $('#unit').val(a[0].Unit);
+                    $('#range').val(a[0].Range);
+                    $('#isActive').prop("checked", a[0].IsActive);
+                    if (a[0].IsActive == true) {
+                        console.log(a[0].IsActive)
+                        $('#isActive').prop('checked', true)
+                    }
+                }
+
+            });
+
+        }
+        localStorage.removeItem("paramSetupId");
+    }
+
+
+    function Delete(a) {
+        debugger;
+        localStorage["paramSetupId"] = a;
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!',
+        }).then(function (result) {
+            if (result.isConfirmed) {
+
+                var GetId = localStorage["paramSetupId"];
+                $.ajax({
+                    url: 'https://localhost:44378/ParameterSetup/DeleteParameter',
+                    type: 'POST',
+                    data: { Id: GetId },
+                    success: function (data) {
+                        debugger;
+
+                        localStorage.removeItem("paramSetupId");
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        ).then(function (get) {
+                            if (get.isConfirmed) {
+                                location.reload();
+                            }
+                        });
+                    },
+                    error: function () {
+                        swalWithBootstrapButtons.fire(
+                            'Cancelled',
+                            ':)',
+                            'error'
+                        )
+                    }
+
+                });
+            }
+            else if (result.dismiss === Swal.DismissReason.cancel) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    ':)',
+                    'error'
+                )
+            }
+        })
+
+    }
+
+    function confirmDelete() {
+        var GetId = localStorage["paramSetupId"];
+
+        $.ajax({
+            url: 'https://localhost:44378/CustomSetup/DeleteCustomSetupById',
+            type: 'POST',
+            data: { Id: GetId },
+            success: function (data) {
+                debugger;
+
+                localStorage.removeItem("paramSetupId");
+
+            }
+
+        });
+
+        location.reload();
+
+        localStorage.removeItem("paramSetupId");
+    }
+
+</script>
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
@@ -23,205 +277,113 @@
 </div>
 
 <div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead class="thead-light">
-                            <tr>
-                                <th>Setup Name</th>
-                                <th>Age</th>
-                                <th>ID</th>
-                                <th>Address</th>
-                                <th>Mobile No</th>
-                                <th>Last Visit</th>
-                                <th>Status</th>
-                                <th class="text-right">Action</th>
-                            </tr><!--end tr-->
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td><a href="hospital-patient-profile.html"><img src="assets/images/users/user-10.jpg" alt="" class="thumb-sm rounded-circle me-2">Donald Gardner</a></td>
-                                <td>36</td>
-                                <td>#1236</td>
-                                <td>B28 University Street US</td>
-                                <td>+123456789</td>
-                                <td>18/07/2019</td>
-                                <td><span class="badge badge-soft-success">Approved</span></td>
-                                <td>
-                                    <a href="#"><i class="las la-pen text-secondary font-16"></i></a>
-                                    <a href="#"><i class="las la-trash-alt text-secondary font-16"></i></a>
-                                </td>
-                            </tr><!--end tr-->
-                            <tr>
-                                <td><a href="hospital-patient-profile.html"><img src="assets/images/users/user-9.jpg" alt="" class="thumb-sm rounded-circle me-2">Keith Jacobson</a></td>
-                                <td>48</td>
-                                <td>#1236</td>
-                                <td>B28 University Street US</td>
-                                <td>+123456789</td>
-                                <td>18/07/2019</td>
-                                <td><span class="badge badge-soft-success">Approved</span></td>
-                                <td>
-                                    <a href="#"><i class="las la-pen text-secondary font-16"></i></a>
-                                    <a href="#"><i class="las la-trash-alt text-secondary font-16"></i></a>
-                                </td>
-                            </tr><!--end tr-->
-                            <tr>
-                                <td><a href="hospital-patient-profile.html"><img src="assets/images/users/user-9.jpg" alt="" class="thumb-sm rounded-circle me-2">Greg Crosby</a></td>
-                                <td>27</td>
-                                <td>#1236</td>
-                                <td>B28 University Street US</td>
-                                <td>+123456789</td>
-                                <td>18/07/2019</td>
-                                <td><span class="badge badge-soft-success">Approved</span></td>
-                                <td>
-                                    <a href="#"><i class="las la-pen text-secondary font-16"></i></a>
-                                    <a href="#"><i class="las la-trash-alt text-secondary font-16"></i></a>
-                                </td>
-                            </tr><!--end tr-->
-                            <tr>
-                                <td><a href="hospital-patient-profile.html"><img src="assets/images/users/user-8.jpg" alt="" class="thumb-sm rounded-circle me-2">Fred Godina</a></td>
-                                <td>22</td>
-                                <td>#1236</td>
-                                <td>B28 University Street US</td>
-                                <td>+123456789</td>
-                                <td>18/07/2019</td>
-                                <td><span class="badge badge-soft-success">Approved</span></td>
-                                <td>
-                                    <a href="#"><i class="las la-pen text-secondary font-16"></i></a>
-                                    <a href="#"><i class="las la-trash-alt text-secondary font-16"></i></a>
-                                </td>
-                            </tr><!--end tr-->
-                            <tr>
-                                <td><a href="hospital-patient-profile.html"><img src="assets/images/users/user-7.jpg" alt="" class="thumb-sm rounded-circle me-2">Peggy Doe</a></td>
-                                <td>51</td>
-                                <td>#7851</td>
-                                <td>B28 University Street US</td>
-                                <td>+123456789</td>
-                                <td>20/07/2019</td>
-                                <td><span class="badge badge-soft-warning">Panding</span></td>
-                                <td>
-                                    <a href="#"><i class="las la-pen text-secondary font-16"></i></a>
-                                    <a href="#"><i class="las la-trash-alt text-secondary font-16"></i></a>
-                                </td>
-                            </tr><!--end tr-->
-                            <tr>
-                                <td><a href="hospital-patient-profile.html"><img src="assets/images/users/user-8.jpg" alt="" class="thumb-sm rounded-circle me-2">Jennifer Doss</a></td>
-                                <td>18</td>
-                                <td>#3654</td>
-                                <td>B28 University Street US</td>
-                                <td>+123456789</td>
-                                <td>19/07/2019</td>
-                                <td><span class="badge badge-soft-warning">Panding</span></td>
-                                <td>
-                                    <a href="#"><i class="las la-pen text-secondary font-16"></i></a>
-                                    <a href="#"><i class="las la-trash-alt text-secondary font-16"></i></a>
-                                </td>
-                            </tr><!--end tr-->
-                        </tbody>
-                    </table>
+    <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            <div class="form-group row mb-2">
+                <div class="col-lg-3">
+                    <button id="addNew" type="button" onclick="EditCustomSetup()" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-animation="bounce" data-bs-target=".bs-example-modal-lg">+ Add New</button>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <button type="button" class="btn btn-de-primary btn-sm" data-bs-toggle="modal" data-animation="bounce" data-bs-target=".bs-example-modal-lg">+ Add New</button>
-                    </div><!--end col-->
-                    <div class="col-auto">
-                        <nav aria-label="...">
-                            <ul class="pagination pagination-sm mb-0">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                </li>
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
-                                </li>
-                            </ul><!--end pagination-->
-                        </nav><!--end nav-->
-                    </div> <!--end col-->
-                </div><!--end row-->
-            </div><!--end card-body-->
-        </div><!--end card-->
-    </div> <!--end col-->
-</div><!--end row-->
-
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h6 class="modal-title mt-0" id="myLargeModalLabel">Add New Parameter</h6>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+        </div>
+        </div>
 
-
-                <div class="mb-3 row">
-                    <label for="example-text-input" class="col-sm-2 col-form-label text-end">ID</label>
-                    <div class="col-sm-6">
-                        <input class="form-control" type="text" value="" disabled id="example-text-input">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="display" style="width:100%" id="table">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Test Code</th>
+                                    <th>Paramter Name</th>
+                                    <th>Parameter Type</th>
+                                    <th>Unit </th>
+                                    <th>Range</th>
+                                    <th>IsActive</th>
+                                    <th class="text-right">Action</th>
+                                </tr><!--end tr-->
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
                     </div>
-                </div>
+                </div><!--end card-body-->
+            </div><!--end card-->
+        </div> <!--end col-->
+    </div><!--end row-->
 
-                <div class="mb-3 row">
-                    <label for="example-text-input" class="col-sm-2 col-form-label text-end">Test Code</label>
-                    <div class="col-sm-6">
-                        <input class="form-control" type="text" value="" id="testCode">
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title mt-0" id="myLargeModalLabel">Add New Parameter</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="mb-3 row">
+                        <label for="example-text-input" class="col-sm-2 col-form-label text-end">ID</label>
+                        <div class="col-sm-6">
+                            <input class="form-control" type="text" disabled id="paramSetupId">
+                        </div>
                     </div>
-                </div>
 
-                <div class="mb-3 row">
-                    <label for="example-text-input" class="col-sm-2 col-form-label text-end">Paramter Name</label>
-                    <div class="col-sm-6">
-                        <input class="form-control" type="text" value="" id="parameterName">
+                    <div class="mb-3 row">
+                        <label for="example-text-input" class="col-sm-2 col-form-label text-end">Test Code</label>
+                        <div class="col-sm-6">
+                            <input class="form-control" type="text"  id="testCode">
+                        </div>
                     </div>
-                </div>
 
-                <div class="mb-3 row">
-                    <label for="example-text-input" class="col-sm-2 col-form-label text-end">Parameter Type</label>
-                    <div class="col-sm-6">
-                        <select class="form-select" aria-label="Default select example" id="parameterType">
-                            <option selected>Open this select menu</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
+                    <div class="mb-3 row">
+                        <label for="example-text-input" class="col-sm-2 col-form-label text-end">Paramter Name</label>
+                        <div class="col-sm-6">
+                            <input class="form-control" type="text" id="parameterName">
+                        </div>
                     </div>
-                </div>
 
-
-
-                <div class="mb-3 row">
-                    <label for="example-text-input" class="col-sm-2 col-form-label text-end">Unit</label>
-                    <div class="col-sm-6">
-                        <input class="form-control" type="text" value="" id="unit">
+                    <div class="mb-3 row">
+                        <label for="example-text-input" class="col-sm-2 col-form-label text-end">Parameter Type</label>
+                        <div class="col-sm-6">
+                            <select class="form-select" aria-label="Default select example" id="parameterType">
+                                <option selected disabled hidden>Parameter Type...</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
 
-                <div class="mb-3 row">
-                    <label for="example-text-input" class="col-sm-2 col-form-label text-end">Range</label>
-                    <div class="col-sm-6">
-                        <input class="form-control" type="text" value="" id="range">
+                    <div class="mb-3 row">
+                        <label for="example-text-input" class="col-sm-2 col-form-label text-end">Unit</label>
+                        <div class="col-sm-6">
+                            <input class="form-control" type="text"  id="unit">
+                        </div>
                     </div>
-                </div>
 
-                <div class="mb-3 row">
-                    <label for="example-text-input" class="col-sm-2 col-form-label text-end">Allow</label>
-                    <div class=" col-sm-6">
-                        <input type="checkbox" class="custom-control-input" id="horizontalCheckbox" data-parsley-multiple="groups" data-parsley-mincheck="2">
+                    <div class="mb-3 row">
+                        <label for="example-text-input" class="col-sm-2 col-form-label text-end">Range</label>
+                        <div class="col-sm-6">
+                            <input class="form-control" type="text" id="range">
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <button class="btn btn-de-primary btn-sm text-light px-4 mt-3 mb-0">Save</button>
-                    <button class="btn btn-de-danger btn-sm text-light px-4 mt-3 mb-0">Cancel</button>
-                </div>
+                    <div class="form-group row">
+                        <div class="col-lg-4 mb-4 col-form-label text-end">
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label" for="inlineCheckbox2">IsActive</label>
+                                <input class="form-check-input " type="checkbox" id="isActive">
+                            </div>
+                        </div>
+                    </div>
 
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div>
+                    <div class="form-group">
+                        <button class="btn btn-de-primary btn-sm text-light px-4 mt-3 mb-0" onclick="Update()">Save</button>
+                        <button class="btn btn-de-danger btn-sm text-light px-4 mt-3 mb-0" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>

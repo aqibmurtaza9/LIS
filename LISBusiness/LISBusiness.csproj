@@ -44,6 +44,10 @@
     <Compile Include="BaseBusiness.cs" />
     <Compile Include="DBBridge.cs" />
     <Compile Include="Managers\CustomSetupManager.cs" />
+    <Compile Include="Managers\LaboratoryManager.cs" />
+    <Compile Include="Managers\LabRequestManager.cs" />
+    <Compile Include="Managers\ParameterSetupManager.cs" />
+    <Compile Include="Managers\PatientManager.cs" />
     <Compile Include="Managers\UserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlHelper.cs" />

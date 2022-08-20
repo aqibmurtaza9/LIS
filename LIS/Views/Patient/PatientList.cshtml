@@ -3,156 +3,365 @@
     ViewBag.Title = "PatientList";
 }
 <script>
+
+    $(document).ready(function () {
+
+
+        debugger;
+        $('#table').DataTable({
+            responsive: true,
+            "ajax": 'https://localhost:44378/Patient/PatientListRead',
+            "dataSrc": '',
+            "columns": [
+                { "data": "Id", className: "text-center" },
+                { "data": "FirstName", className: "text-center" },
+                { "data": "LastName", className: "text-center" },
+                { "data": "Email", className: "text-center" },
+                { "data": "Age", className: "text-center" },
+                { "data": "MobileNo", className: "text-center" },
+                { "data": "Gender", className: "text-center" },
+                { "data": "MartialStatus", className: "text-center" },
+                { "data": "IsActive", className: "text-center" },
+                { "data": "Action", className: "text-center" },
+            ],
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'copyHtml5',
+                    text: '<i class="fa fa-files-o hoverback" style="color:blue;"></i>',
+                    titleAttr: 'Copy'
+                },
+                {
+                    extend: 'excelHtml5',
+                    text: '<i class="fa fa-file-excel-o hoverback" style="color:green;"></i>',
+                    titleAttr: 'Excel'
+                },
+                {
+                    extend: 'csvHtml5',
+                    text: '<i class="fa fa-file-text-o hoverback" style="color:purple;"></i>',
+                    titleAttr: 'CSV'
+                },
+                {
+                    extend: 'pdfHtml5',
+                    text: '<i class="fa fa-file-pdf-o hoverback" style="color:red;"></i>',
+                    titleAttr: 'PDF'
+                }
+            ]
+        });
+
+    });
+
     $('document').ready(function () {
         console.log("event fire");
         $("#apps-tab").click();
     });
+
+    function Update() {
+        debugger;
+        var patientId = $("#Id").val();
+        var firstName = $('#firstName').val();
+        var lastName = $('#lastName').val();
+        var email = $('#email').val();
+        var mobileNo = $('#mobileNumber').val();
+        var age = $('#age').val();
+        var gender = $('#gender option:selected').val();
+        var martialStatus = $('#martialStatus option:selected').val();
+        var Address = $('#address').val();
+
+        if (patientId != '') {
+            debugger;
+            $.ajax({
+                url: 'https://localhost:44378/Patient/PatientUpdate',
+                type: 'POST',
+                data: {
+                    Id: patientId,
+                    FirstName: firstName,
+                    LastName: lastName,
+                    Email: email,
+                    MobileNo: mobileNo,
+                    Age: age,
+                    Gender: gender,
+                    MartialStatus: martialStatus,
+                    Address: Address
+                },
+                success: function (data) {
+                    debugger;
+                 
+                    Swal.fire(
+                        'Updated!',
+                        'Your record has been updated!',
+                        'success'
+                    ).then(function (get) {
+                        if (get.isConfirmed) {
+                            location.reload();
+                        }
+                    });
+
+                },
+                error: function (reponse) {
+                    debugger;
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        ':)',
+                        'error'
+                    )
+                }
+            });
+        }
+        else {
+            $.ajax({
+                url: 'https://localhost:44378/Patient/PatientUpdate',
+                type: 'POST',
+                data: {
+                    Id: patientId,
+                    FirstName: firstName,
+                    LastName: lastName,
+                    Email: email,
+                    MobileNo: mobileNo,
+                    Age: age,
+                    Gender: gender,
+                    MartialStatus: martialStatus,
+                    Address: Address
+                },
+                success: function (data) {
+                    debugger;
+                    Swal.fire(
+                        'Registered!',
+                        'Your record has been registered!',
+                        'success'
+                    ).then(function (get) {
+                        if (get.isConfirmed) {
+                            location.reload();
+                        }
+                    });
+                },
+                error: function (reponse) {
+                    debugger;
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        ':)',
+                        'error'
+                    )
+                }
+            });
+        }
+    }
+
+    function Edit(a) {
+        debugger;
+        localStorage["patientId"] = a;
+        $('#addNew').click();
+    }
+
+    async function EditPatient() {
+
+        var Id = localStorage["patientId"];
+        if (Id != null) {
+            debugger;
+            await $.ajax({
+                url: 'https://localhost:44378/Patient/PatientReadById',
+                type: 'POST',
+                data: { Id: Id },
+                success: function (data) {
+                    debugger;
+                    var a = JSON.parse(data);
+                    $('#Id').val(a[0].ID);
+                    $('#firstName').val(a[0].FirstName);
+                    $('#lastName').val(a[0].LastName);
+                    $('#email').val(a[0].Email);
+                    $('#mobileNumber').val(a[0].MobileNo);
+                    $('#age').val(a[0].Age);
+                    $('#gender option:selected').val(a[0].Gender);
+                    $('#martialStatus option:selected').val(a[0].MartialStatus);
+                    $('#address').val(a[0].Address)
+                    $('#isActive').prop("checked", a[0].IsActive);
+                    if (a[0].IsActive == true) {
+                        console.log(a[0].IsActive)
+                        $('#isActive').prop('checked', true)
+                    }
+                }
+
+            });
+
+        }
+        localStorage.removeItem("paramSetupId");
+    }
+
+    function Delete(a) {
+        debugger;
+        localStorage["patientId"] = a;
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!',
+        }).then(function (result) {
+            if (result.isConfirmed) {
+
+                var GetId = localStorage["patientId"];
+                $.ajax({
+                    url: 'https://localhost:44378/Patient/DeletePatientById',
+                    type: 'POST',
+                    data: { Id: GetId },
+                    success: function (data) {
+                        debugger;
+
+                        localStorage.removeItem("patientId");
+                        Swal.fire(
+                            'Deleted!',
+                            'Your record has been deleted.',
+                            'success'
+                        ).then(function (get) {
+                            if (get.isConfirmed) {
+                                location.reload();
+                            }
+                        });
+                    },
+                    error: function () {
+                        swalWithBootstrapButtons.fire(
+                            'Cancelled',
+                            ':)',
+                            'error'
+                        )
+                    }
+
+                });
+            }
+            else if (result.dismiss === Swal.DismissReason.cancel) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    ':)',
+                    'error'
+                )
+            }
+        })
+
+    }
+
+    function confirmDelete() {
+        var GetId = localStorage["CustomId"];
+
+        $.ajax({
+            url: 'https://localhost:44378/CustomSetup/DeleteCustomSetupById',
+            type: 'POST',
+            data: { Id: GetId },
+            success: function (data) {
+                debugger;
+
+                localStorage.removeItem("GetId");
+
+            }
+
+        });
+
+        location.reload();
+
+        localStorage.removeItem("GetId");
+    }
+
 </script>
 
-
 <div class="row">
-    <div class="col-sm-12">
-        <div class="page-title-box">
-            <div class="float-end">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="#">Metrica</a>
-                    </li><!--end nav-item-->
-                    <li class="breadcrumb-item">
-                        <a href="#">Hospital</a>
-                    </li><!--end nav-item-->
-                    <li class="breadcrumb-item active">Patients</li>
-                </ol>
-            </div>
-            <h4 class="page-title">All Patients</h4>
-        </div><!--end page-title-box-->
-    </div><!--end col-->
-</div>
-
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead class="thead-light">
-                            <tr>
-                                <th>Patient Name</th>
-                                <th>Age</th>
-                                <th>ID</th>
-                                <th>Address</th>
-                                <th>Mobile No</th>
-                                <th>Last Visit</th>
-                                <th>Status</th>
-                                <th class="text-right">Action</th>
-                            </tr><!--end tr-->
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td><a href="hospital-patient-profile.html"><img src="assets/images/users/user-10.jpg" alt="" class="thumb-sm rounded-circle me-2">Donald Gardner</a></td>
-                                <td>36</td>
-                                <td>#1236</td>
-                                <td>B28 University Street US</td>
-                                <td>+123456789</td>
-                                <td>18/07/2019</td>
-                                <td><span class="badge badge-soft-success">Approved</span></td>
-                                <td>
-                                    <a href="#"><i class="las la-pen text-secondary font-16"></i></a>
-                                    <a href="#"><i class="las la-trash-alt text-secondary font-16"></i></a>
-                                </td>
-                            </tr><!--end tr-->
-                            <tr>
-                                <td><a href="hospital-patient-profile.html"><img src="assets/images/users/user-9.jpg" alt="" class="thumb-sm rounded-circle me-2">Keith Jacobson</a></td>
-                                <td>48</td>
-                                <td>#1236</td>
-                                <td>B28 University Street US</td>
-                                <td>+123456789</td>
-                                <td>18/07/2019</td>
-                                <td><span class="badge badge-soft-success">Approved</span></td>
-                                <td>
-                                    <a href="#"><i class="las la-pen text-secondary font-16"></i></a>
-                                    <a href="#"><i class="las la-trash-alt text-secondary font-16"></i></a>
-                                </td>
-                            </tr><!--end tr-->
-                            <tr>
-                                <td><a href="hospital-patient-profile.html"><img src="assets/images/users/user-9.jpg" alt="" class="thumb-sm rounded-circle me-2">Greg Crosby</a></td>
-                                <td>27</td>
-                                <td>#1236</td>
-                                <td>B28 University Street US</td>
-                                <td>+123456789</td>
-                                <td>18/07/2019</td>
-                                <td><span class="badge badge-soft-success">Approved</span></td>
-                                <td>
-                                    <a href="#"><i class="las la-pen text-secondary font-16"></i></a>
-                                    <a href="#"><i class="las la-trash-alt text-secondary font-16"></i></a>
-                                </td>
-                            </tr><!--end tr-->
-                            <tr>
-                                <td><a href="hospital-patient-profile.html"><img src="assets/images/users/user-8.jpg" alt="" class="thumb-sm rounded-circle me-2">Fred Godina</a></td>
-                                <td>22</td>
-                                <td>#1236</td>
-                                <td>B28 University Street US</td>
-                                <td>+123456789</td>
-                                <td>18/07/2019</td>
-                                <td><span class="badge badge-soft-success">Approved</span></td>
-                                <td>
-                                    <a href="#"><i class="las la-pen text-secondary font-16"></i></a>
-                                    <a href="#"><i class="las la-trash-alt text-secondary font-16"></i></a>
-                                </td>
-                            </tr><!--end tr-->
-                            <tr>
-                                <td><a href="hospital-patient-profile.html"><img src="assets/images/users/user-7.jpg" alt="" class="thumb-sm rounded-circle me-2">Peggy Doe</a></td>
-                                <td>51</td>
-                                <td>#7851</td>
-                                <td>B28 University Street US</td>
-                                <td>+123456789</td>
-                                <td>20/07/2019</td>
-                                <td><span class="badge badge-soft-warning">Panding</span></td>
-                                <td>
-                                    <a href="#"><i class="las la-pen text-secondary font-16"></i></a>
-                                    <a href="#"><i class="las la-trash-alt text-secondary font-16"></i></a>
-                                </td>
-                            </tr><!--end tr-->
-                            <tr>
-                                <td><a href="hospital-patient-profile.html"><img src="assets/images/users/user-8.jpg" alt="" class="thumb-sm rounded-circle me-2">Jennifer Doss</a></td>
-                                <td>18</td>
-                                <td>#3654</td>
-                                <td>B28 University Street US</td>
-                                <td>+123456789</td>
-                                <td>19/07/2019</td>
-                                <td><span class="badge badge-soft-warning">Panding</span></td>
-                                <td>
-                                    <a href="#"><i class="las la-pen text-secondary font-16"></i></a>
-                                    <a href="#"><i class="las la-trash-alt text-secondary font-16"></i></a>
-                                </td>
-                            </tr><!--end tr-->
-                        </tbody>
-                    </table>
+    <div class="row">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                <div class="form-group row mb-2">
+                    <div class="col-lg-3">
+                        <button id="addNew" type="button" onclick="EditPatient()" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-animation="bounce" data-bs-target=".bs-example-modal-lg">+ Add New</button>
+                    </div>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <a class="btn btn-outline-light btn-sm px-4" href="@Url.Action("AddNewPatient", "Patient")">+ Add New</a>
-                    </div><!--end col-->
-                    <div class="col-auto">
-                        <nav aria-label="...">
-                            <ul class="pagination pagination-sm mb-0">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                </li>
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
-                                </li>
-                            </ul><!--end pagination-->
-                        </nav><!--end nav-->
-                    </div> <!--end col-->
-                </div><!--end row-->
-            </div><!--end card-body-->
-        </div><!--end card-->
-    </div> <!--end col-->
-</div><!--end row-->
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table" style="width:100%" id="table">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Id</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>Age</th>
+                                    <th>Mobile No</th>
+                                    <th>Address</th>
+                                    <th>Martial Status</th>
+                                    <th>IsActive</th>
+                                    <th class="text-right">Action</th>
+                                </tr><!--end tr-->
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div><!--end card-body-->
+            </div><!--end card-->
+        </div> <!--end col-->
+    </div><!--end row-->
+</div>
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title mt-0" id="myLargeModalLabel">Add New Parameter</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <div class="col-md-2 mb-3">
+                            <input type="text" readonly placeholder="" class="form-control" name="Patient_Id" id="Id">
+                        </div>
+                        <div class="col-md-5 mb-3">
+                            <input type="text" placeholder="First Name" class="form-control" name="First_Name" id="firstName">
+                        </div>
+                        <div class="col-md-5 mb-3">
+                            <input type="text" placeholder="Last Name" class="form-control" name="Last_Name" id="lastName">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-3 mb-3">
+                            <input type="text" placeholder="Mobile No." class="form-control" name="phone_num" id="mobileNumber">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <select class="form-select" id="gender">
+                                <option disabled selected hidden>Gender</option>
+                                <option value="1">Male</option>
+                                <option value="2">Female</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <input type="text" placeholder="Age" class="form-control" name="Age" id="age">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <input type="email" placeholder="Email" class="form-control" name="Email" id="email">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-3 mb-3">
+                            <select class="form-select" id="martialStatus">
+                                <option disabled selected hidden>Martial Status</option>
+                                <option value="1">Single</option>
+                                <option value="2">Married</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <textarea rows="3" placeholder="Address" class="form-control" id="address"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-de-primary btn-sm text-light px-4 mt-3 mb-0" onclick="Update()">Save</button>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>

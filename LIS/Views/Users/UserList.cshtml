@@ -70,7 +70,6 @@
 
     function confirmDelete() {
         var GetId = localStorage["GetId"];
-        // alert("Value " + GetId);
 
         $.ajax({
             url: '/Users/DeleteUser',
@@ -79,17 +78,11 @@
             success: function (data) {
                 debugger;
                 // window.open("/Users/UserProfile", "_self");
-
-
-
                 localStorage.removeItem("GetId");
-
             }
-
         });
 
         location.reload();
-
         localStorage.removeItem("GetId");
     }
 
@@ -137,8 +130,6 @@
         });
 
     });
-
-
 
 </script>
 

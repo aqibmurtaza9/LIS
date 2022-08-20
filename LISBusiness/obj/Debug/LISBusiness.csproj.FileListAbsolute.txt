@@ -7,3 +7,12 @@ D:\LIS\LISBusiness\obj\Debug\LISBusiness.pdb
 D:\LIS\LISBusiness\bin\Debug\LISCommon.dll
 D:\LIS\LISBusiness\bin\Debug\LISCommon.pdb
 D:\LIS\LISBusiness\obj\Debug\LISBusiness.csproj.CopyComplete
+C:\Users\CC\Desktop\LIS\LISBusiness\bin\Debug\LISBusiness.dll
+C:\Users\CC\Desktop\LIS\LISBusiness\bin\Debug\LISBusiness.pdb
+C:\Users\CC\Desktop\LIS\LISBusiness\bin\Debug\LISCommon.dll
+C:\Users\CC\Desktop\LIS\LISBusiness\bin\Debug\LISCommon.pdb
+C:\Users\CC\Desktop\LIS\LISBusiness\obj\Debug\LISBusiness.csproj.AssemblyReference.cache
+C:\Users\CC\Desktop\LIS\LISBusiness\obj\Debug\LISBusiness.csproj.CoreCompileInputs.cache
+C:\Users\CC\Desktop\LIS\LISBusiness\obj\Debug\LISBusiness.csproj.CopyComplete
+C:\Users\CC\Desktop\LIS\LISBusiness\obj\Debug\LISBusiness.dll
+C:\Users\CC\Desktop\LIS\LISBusiness\obj\Debug\LISBusiness.pdb

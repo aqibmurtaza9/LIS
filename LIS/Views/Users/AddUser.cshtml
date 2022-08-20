@@ -117,6 +117,20 @@
 
     }
 
+    function Cancel(e) {
+        e.preventDefault();
+         $('#firstName').val('');
+        $('#lastName').val('');
+        $('#userName').val('');
+        $('#email').val('');
+        $('#dptCode option:selected').val(1);
+        $('#phoneNo').val('');
+        $('#userType option:selected').val(1);
+        $('#gender option:selected').val(1);
+        $('#cnic').val('');
+        $('#allowAuth').is(':checked');
+        $('#isActive').is(':checked');
+    }
 </script>
 
 
@@ -136,7 +150,6 @@
         </div><!--end page-title-box-->
     </div><!--end col-->
 </div>
-
 
 <div class="row">
     <div class="col-12 col-lg-8 mx-auto">
@@ -183,8 +196,8 @@
                             <input type="text" placeholder="Contact No." class="form-control" name="phoneNo" id="phoneNo" required>
                         </div>
                         <div class="col-md-3 mb-3">
-                            <select class="form-select" id="gender" required>
-                                <option selected disabled>Gender...</option>
+                            <select class="form-select" id="gender" required >
+                                <option  disabled selected hidden style="color:gray;">Gender...</option>
                                 <option value="1">Male</option>
                                 <option value="2">Female</option>
                             </select>
@@ -199,7 +212,7 @@
 
                         <div class="col-md-3 mb-3">
                             <select class="form-select" id="dptCode" required>
-                                <option selected disabled >Department..</option>
+                                <option selected disabled hidden>Department..</option>
                                 <option value="1">Dpt 01</option>
                                 <option value="2">Dpt 02</option>
                             </select>
@@ -207,7 +220,7 @@
 
                         <div class="col-md-3 mb-3">
                             <select class="form-select" id="userType" required>
-                                <option selected disabled >User Type...</option>
+                                <option  disabled selected hidden >User Type...</option>
                                 <option value="1">Admin</option>
                                 <option value="2">Manager</option>
                                 <option value="3">User</option>
@@ -229,7 +242,7 @@
 
                     <div class="form-group">
                         <button class="btn btn-primary btn-sm text-light px-4 mt-3 mb-0"  type="submit">Save</button>
-                        <button class="btn btn-danger btn-sm text-light px-4 mt-3 mb-0">Cancel</button>
+                     @*   <button class="btn btn-danger btn-sm text-light px-4 mt-3 mb-0" onclick="Cancel(e)">Cancel</button>*@
                     </div>
                 </form>
             </div> <!--end card-body-->

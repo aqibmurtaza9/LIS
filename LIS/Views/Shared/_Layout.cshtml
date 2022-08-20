@@ -40,6 +40,11 @@
 
     <link href="~/Scripts/plugins/sweet-alert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
     <link href="~/Scripts/plugins/animate/animate.min.css" rel="stylesheet" type="text/css">
+    <style>
+        select:required:invalid {
+            color: gray;
+        }
+    </style>
 </head>
 
 
@@ -134,7 +139,7 @@
                                     <a class="nav-link" href="@Url.Action("PatientList", "Patient")">Patient Setup</a>
                                 </li><!--end nav-item-->
                                 <li class="nav-item">
-                                    <a class="nav-link" href="hospital-patient-profile.html">Lab Request</a>
+                                    <a class="nav-link" href="@Url.Action("PatientList", "Patient")">Lab Request</a>
                                 </li><!--end nav-item-->
                                 <li class="nav-item">
                                     <a class="nav-link" href="@Url.Action("TestSetupList", "TestSetup")">Test Setup</a>

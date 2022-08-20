@@ -6,10 +6,6 @@
 <script>
     $(document).ready(function (data) {
 
-
-
-
-
         $.ajax({
             url: 'https://localhost:44378/CustomSetup/SetupPreLoad',
             type: 'POST',
@@ -70,7 +66,6 @@
 
         });
 
-
     });
 
     function BindTable(Id) {
@@ -129,18 +124,14 @@
 
     }
 
-
     function Update() {
-       
             var Id = $('#setupId').val();
-
+            var MasterId = $("#customOption option:selected").val(); //get selected custom setup parent value
+            var Description = $('#description').val();
+            var IsActive = $('#isActive').is(':checked');
             //with edit
-            if (Id == '') {
-                var Id = $('#setupId').text();
-                var MasterId = $("#customOption option:selected").val(); //get selected custom setup parent value
-                var Description = $('#description').val();
-                var IsActive = $('#isActive').is(':checked');
-
+            if (Id != '') {
+           
                 debugger;
                 $.ajax({
                     url: 'https://localhost:44378/CustomSetup/CustomSetupUpdate',
@@ -154,8 +145,8 @@
                     success: function (data) {
 
                         Swal.fire(
-                            'Registered!',
-                            'Your record has been registered!',
+                            'Updated!',
+                            'Your record has been updated!',
                             'success'
                         ).then(function (get) {
                             if (get.isConfirmed) {
@@ -176,27 +167,19 @@
 
             //new entry
             else {
-                var Id = $('#setupId').text();
-                let MasterId = $("#customOption option:selected").val(); //get selected custom setup parent value
-                var Description = $('#description').val();
-                var IsActive = $('#isActive').is(':checked');
-
-
                 debugger;
                 $.ajax({
                     url: 'https://localhost:44378/CustomSetup/CustomSetupUpdate',
                     type: 'POST',
                     data: {
-                        Id: Id,
                         MasterId: MasterId,
                         Description: Description,
                         IsActive: IsActive
-
                     },
                     success: function (data) {
                         Swal.fire(
-                            'Updated!',
-                            'Your record has been updated!',
+                            'Registered!',
+                            'Your record has been registered!',
                             'success'
                         ).then(function (get) {
                             if (get.isConfirmed) {
@@ -217,14 +200,12 @@
 
     }
 
-
      function Edit(a) {
         debugger;
         localStorage["CustomId"] = a;
         $('#addNew').click();
         
      }
-
 
      async function EditCustomSetup() {
 
@@ -329,9 +310,6 @@
 
         localStorage.removeItem("GetId");
     }
-
-  
-
 
 </script>
 <div class="row">
@@ -460,7 +438,7 @@
 
                     <div class="form-group">
                         <button onclick="Update()" class="btn btn-de-primary btn-sm text-light px-4 mt-3 mb-0">Save</button>
-                        <button class="btn btn-de-danger btn-sm text-light px-4 mt-3 mb-0">Cancel</button>
+                        <button class="btn btn-de-danger btn-sm text-light px-4 mt-3 mb-0" data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </form>
 

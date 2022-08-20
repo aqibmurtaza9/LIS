@@ -111,7 +111,6 @@ namespace LISBusiness.Managers
 
         public int CustomSetupUpdate()
         {
-
             try
             {
                 SqlParameter[] param = new SqlParameter[6];
