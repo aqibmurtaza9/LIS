@@ -15,6 +15,11 @@ namespace LIS.Controllers
             return View();
         }
 
+        public ActionResult LabRequestEntry()
+        {
+            return View();
+        }
+
         public JsonResult LabRequestDetail(string mrno, string Status, string TestCode, string IRSType, string UrgentType)
         {
             LabRequestManager cls = new LabRequestManager();

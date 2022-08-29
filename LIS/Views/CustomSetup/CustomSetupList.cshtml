@@ -220,7 +220,7 @@
                     success: function (data) {
                         debugger;
                         var a = JSON.parse(data);
-                        $('#setupId').append(a[0].Id);
+                        $('#setupId').val(a[0].Id);
                         $('#customOption').val(a[0].MasterId);
                         $('#description').val(a[0].Description);
                         if (a[0].IsActive == true) {
@@ -404,7 +404,7 @@
                     <div class="form-group row">
                         <label class="col-lg-3 col-form-label text-end">ID</label>
                         <div class="col-md-6 mb-3">
-                            <label class="col-lg-3 col-form-label" id="setupId"></label>
+                            <input readonly class="col-lg-3 col-form-label" id="setupId" />
                         </div>
                     </div>
 

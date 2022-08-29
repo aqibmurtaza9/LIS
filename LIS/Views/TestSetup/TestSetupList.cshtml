@@ -3,6 +3,148 @@
     ViewBag.Title = "TestSetupList";
 }
 
+<script>
+    $(document).ready(function () {
+
+
+        debugger;
+        $('#table').DataTable({
+            "ajax": 'https://localhost:44378/TestSetup/ReadDT',
+            "dataSrc": '',
+            "columns": [
+
+                { "data": "Id", className: "text-center" },
+                { "data": "TestName", className: "text-center" },
+                { "data": "ShortDesp", className: "text-center" },
+                { "data": "Type", className: "text-center" },
+                { "data": "Section", className: "text-center" },
+                { "data": "SubSection", className: "text-center" },
+                { "data": "CptCode", className: "text-center" },
+                { "data": "IsActive", className: "text-center" },
+                { "data": "IsDeleted", className: "text-center" },
+                { "data": "Action", className: "text-center" }
+
+            ],
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'copyHtml5',
+                    text: '<i class="fa fa-files-o hoverback" style="color:blue;"></i>',
+                    titleAttr: 'Copy'
+                },
+                {
+                    extend: 'excelHtml5',
+                    text: '<i class="fa fa-file-excel-o hoverback" style="color:green;"></i>',
+                    titleAttr: 'Excel'
+                },
+                {
+                    extend: 'csvHtml5',
+                    text: '<i class="fa fa-file-text-o hoverback" style="color:purple;"></i>',
+                    titleAttr: 'CSV'
+                },
+                {
+                    extend: 'pdfHtml5',
+                    text: '<i class="fa fa-file-pdf-o hoverback" style="color:red;"></i>',
+                    titleAttr: 'PDF'
+                }
+            ]
+        });
+
+    });
+
+    function Update() {
+
+        debugger;
+        var Id = $("#TxtId").val();
+        var TestName = $("#TxtTestName").val();
+        var ShortDesp = $("#TxtShortDesp").val();
+        var Type = $("#TxtType").val();
+        var Section = $("#TxtSection").val();
+        var SubSection = $("#TxtSubSection").val();
+        var CptCode = $("#TxtCptCode").val();
+        var IsActive = $("#TxtIsActive").val();
+        var IsDeleted = $("#TxtIsDeleted").val();
+
+        //with edit
+        if (Id != '') {
+
+            debugger;
+            $.ajax({
+                url: 'https://localhost:44378/TestSetup/TestSetupUpdate',
+                type: 'POST',
+                data: {
+                    Id: Id,
+                    TestName: TestName,
+                    ShortDesp: ShortDesp,
+                    Type: Type,
+                    Section: Section,
+                    SubSection: SubSection,
+                    CptCode: CptCode,
+                    IsActive: IsActive
+                },
+                success: function (data) {
+
+                    Swal.fire(
+                        'Updated!',
+                        'Your record has been updated!',
+                        'success'
+                    ).then(function (get) {
+                        if (get.isConfirmed) {
+                            location.reload();
+                        }
+                    });
+                },
+                error: function () {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        ':)',
+                        'error'
+                    )
+                }
+
+            });
+        }
+
+        //new entry
+        else {
+            debugger;
+            $.ajax({
+                url: 'https://localhost:44378/CustomSetup/CustomSetupUpdate',
+                type: 'POST',
+                data: {
+                    TestName: TestName,
+                    ShortDesp: ShortDesp,
+                    Type: Type,
+                    Section: Section,
+                    SubSection: SubSection,
+                    CptCode: CptCode,
+                    IsActive: IsActive
+                },
+                success: function (data) {
+                    Swal.fire(
+                        'Registered!',
+                        'Your record has been registered!',
+                        'success'
+                    ).then(function (get) {
+                        if (get.isConfirmed) {
+                            location.reload();
+                        }
+                    });
+                },
+                error: function () {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        ':)',
+                        'error'
+                    )
+                }
+
+            });
+        }
+
+    }
+</script>
+
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
@@ -27,124 +169,26 @@
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table">
-                        <thead class="thead-light">
+                    <table id="table" class="display" style="width:100%">
+                        <thead>
                             <tr>
-                                <th>Setup Name</th>
-                                <th>Age</th>
                                 <th>ID</th>
-                                <th>Address</th>
-                                <th>Mobile No</th>
-                                <th>Last Visit</th>
-                                <th>Status</th>
-                                <th class="text-right">Action</th>
+                                <th>Test Name</th>
+                                <th>Short Description</th>
+                                <th>Type</th>
+                                <th>Section</th>
+                                <th>Sub Section</th>
+                                <th>CPT Code</th>
+                                <th>IsActive</th>
+                                <th>IsDeleted</th>
+                                <th>Edit</th>
                             </tr><!--end tr-->
                         </thead>
-
                         <tbody>
-                            <tr>
-                                <td><a href="hospital-patient-profile.html"><img src="assets/images/users/user-10.jpg" alt="" class="thumb-sm rounded-circle me-2">Donald Gardner</a></td>
-                                <td>36</td>
-                                <td>#1236</td>
-                                <td>B28 University Street US</td>
-                                <td>+123456789</td>
-                                <td>18/07/2019</td>
-                                <td><span class="badge badge-soft-success">Approved</span></td>
-                                <td>
-                                    <a href="#"><i class="las la-pen text-secondary font-16"></i></a>
-                                    <a href="#"><i class="las la-trash-alt text-secondary font-16"></i></a>
-                                </td>
-                            </tr><!--end tr-->
-                            <tr>
-                                <td><a href="hospital-patient-profile.html"><img src="assets/images/users/user-9.jpg" alt="" class="thumb-sm rounded-circle me-2">Keith Jacobson</a></td>
-                                <td>48</td>
-                                <td>#1236</td>
-                                <td>B28 University Street US</td>
-                                <td>+123456789</td>
-                                <td>18/07/2019</td>
-                                <td><span class="badge badge-soft-success">Approved</span></td>
-                                <td>
-                                    <a href="#"><i class="las la-pen text-secondary font-16"></i></a>
-                                    <a href="#"><i class="las la-trash-alt text-secondary font-16"></i></a>
-                                </td>
-                            </tr><!--end tr-->
-                            <tr>
-                                <td><a href="hospital-patient-profile.html"><img src="assets/images/users/user-9.jpg" alt="" class="thumb-sm rounded-circle me-2">Greg Crosby</a></td>
-                                <td>27</td>
-                                <td>#1236</td>
-                                <td>B28 University Street US</td>
-                                <td>+123456789</td>
-                                <td>18/07/2019</td>
-                                <td><span class="badge badge-soft-success">Approved</span></td>
-                                <td>
-                                    <a href="#"><i class="las la-pen text-secondary font-16"></i></a>
-                                    <a href="#"><i class="las la-trash-alt text-secondary font-16"></i></a>
-                                </td>
-                            </tr><!--end tr-->
-                            <tr>
-                                <td><a href="hospital-patient-profile.html"><img src="assets/images/users/user-8.jpg" alt="" class="thumb-sm rounded-circle me-2">Fred Godina</a></td>
-                                <td>22</td>
-                                <td>#1236</td>
-                                <td>B28 University Street US</td>
-                                <td>+123456789</td>
-                                <td>18/07/2019</td>
-                                <td><span class="badge badge-soft-success">Approved</span></td>
-                                <td>
-                                    <a href="#"><i class="las la-pen text-secondary font-16"></i></a>
-                                    <a href="#"><i class="las la-trash-alt text-secondary font-16"></i></a>
-                                </td>
-                            </tr><!--end tr-->
-                            <tr>
-                                <td><a href="hospital-patient-profile.html"><img src="assets/images/users/user-7.jpg" alt="" class="thumb-sm rounded-circle me-2">Peggy Doe</a></td>
-                                <td>51</td>
-                                <td>#7851</td>
-                                <td>B28 University Street US</td>
-                                <td>+123456789</td>
-                                <td>20/07/2019</td>
-                                <td><span class="badge badge-soft-warning">Panding</span></td>
-                                <td>
-                                    <a href="#"><i class="las la-pen text-secondary font-16"></i></a>
-                                    <a href="#"><i class="las la-trash-alt text-secondary font-16"></i></a>
-                                </td>
-                            </tr><!--end tr-->
-                            <tr>
-                                <td><a href="hospital-patient-profile.html"><img src="assets/images/users/user-8.jpg" alt="" class="thumb-sm rounded-circle me-2">Jennifer Doss</a></td>
-                                <td>18</td>
-                                <td>#3654</td>
-                                <td>B28 University Street US</td>
-                                <td>+123456789</td>
-                                <td>19/07/2019</td>
-                                <td><span class="badge badge-soft-warning">Panding</span></td>
-                                <td>
-                                    <a href="#"><i class="las la-pen text-secondary font-16"></i></a>
-                                    <a href="#"><i class="las la-trash-alt text-secondary font-16"></i></a>
-                                </td>
-                            </tr><!--end tr-->
+
                         </tbody>
                     </table>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <button type="button" class="btn btn-de-primary btn-sm" data-bs-toggle="modal" data-animation="bounce" data-bs-target=".bs-example-modal-lg">+ Add New</button>
-                    </div><!--end col-->
-                    <div class="col-auto">
-                        <nav aria-label="...">
-                            <ul class="pagination pagination-sm mb-0">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                </li>
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
-                                </li>
-                            </ul><!--end pagination-->
-                        </nav><!--end nav-->
-                    </div> <!--end col-->
-                </div><!--end row-->
             </div><!--end card-body-->
         </div><!--end card-->
     </div> <!--end col-->
