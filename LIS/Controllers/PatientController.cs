@@ -39,7 +39,6 @@ namespace LIS.Controllers
             return Json("OK", JsonRequestBehavior.AllowGet);
         }
 
-
         public JsonResult PatientListRead()
         {
             DataTable dt = new DataTable();

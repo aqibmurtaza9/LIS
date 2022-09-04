@@ -16,3 +16,12 @@ C:\Users\CC\Desktop\LIS\LISBusiness\obj\Debug\LISBusiness.csproj.CoreCompileInpu
 C:\Users\CC\Desktop\LIS\LISBusiness\obj\Debug\LISBusiness.csproj.CopyComplete
 C:\Users\CC\Desktop\LIS\LISBusiness\obj\Debug\LISBusiness.dll
 C:\Users\CC\Desktop\LIS\LISBusiness\obj\Debug\LISBusiness.pdb
+E:\LIS\LISBusiness\bin\Debug\LISBusiness.dll
+E:\LIS\LISBusiness\bin\Debug\LISBusiness.pdb
+E:\LIS\LISBusiness\bin\Debug\LISCommon.dll
+E:\LIS\LISBusiness\bin\Debug\LISCommon.pdb
+E:\LIS\LISBusiness\obj\Debug\LISBusiness.csproj.AssemblyReference.cache
+E:\LIS\LISBusiness\obj\Debug\LISBusiness.csproj.CoreCompileInputs.cache
+E:\LIS\LISBusiness\obj\Debug\LISBusiness.csproj.CopyComplete
+E:\LIS\LISBusiness\obj\Debug\LISBusiness.dll
+E:\LIS\LISBusiness\obj\Debug\LISBusiness.pdb

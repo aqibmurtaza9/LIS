@@ -40,6 +40,7 @@
 
     <link href="~/Scripts/plugins/sweet-alert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
     <link href="~/Scripts/plugins/animate/animate.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Scripts/plugins/select/selectr.min.css" rel="stylesheet" />
     <style>
         select:required:invalid {
             color: gray;
@@ -138,9 +139,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="@Url.Action("PatientList", "Patient")">Patient Setup</a>
                                 </li><!--end nav-item-->
-                                <li class="nav-item">
-                                    <a class="nav-link" href="@Url.Action("PatientList", "Patient")">Lab Request</a>
-                                </li><!--end nav-item-->
+
                                 <li class="nav-item">
                                     <a class="nav-link" href="@Url.Action("TestSetupList", "TestSetup")">Test Setup</a>
                                 </li><!--end nav-item-->
@@ -155,35 +154,11 @@
 
                 <div id="MetricaTransaction" class="main-icon-menu-pane tab-pane" role="tabpanel" aria-labelledby="pages-tab">
                     <div class="title-box">
-                        <h6 class="menu-title">Pages</h6>
+                        <h6 class="menu-title">Order</h6>
                     </div>
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link" href="pages-profile.html">Profile</a>
-                        </li><!--end nav-item-->
-                        <li class="nav-item">
-                            <a class="nav-link" href="pages-tour.html">Tour</a>
-                        </li><!--end nav-item-->
-                        <li class="nav-item">
-                            <a class="nav-link" href="pages-timeline.html">Timeline</a>
-                        </li><!--end nav-item-->
-                        <li class="nav-item">
-                            <a class="nav-link" href="pages-treeview.html">Treeview</a>
-                        </li><!--end nav-item-->
-                        <li class="nav-item">
-                            <a class="nav-link" href="pages-starter.html">Starter Page</a>
-                        </li><!--end nav-item-->
-                        <li class="nav-item">
-                            <a class="nav-link" href="pages-pricing.html">Pricing</a>
-                        </li><!--end nav-item-->
-                        <li class="nav-item">
-                            <a class="nav-link" href="pages-blogs.html">Blogs</a>
-                        </li><!--end nav-item-->
-                        <li class="nav-item">
-                            <a class="nav-link" href="pages-faq.html">FAQs</a>
-                        </li><!--end nav-item-->
-                        <li class="nav-item">
-                            <a class="nav-link" href="pages-gallery.html">Gallery</a>
+                            <a class="nav-link" href="@Url.Action("LabRequestEntry", "LabRequest")">Lab Request</a>
                         </li><!--end nav-item-->
                     </ul><!--end nav-->
                 </div><!-- end Transaction -->
@@ -511,7 +486,7 @@
 <script src="~/Scripts/app.js"></script>
 <script src="~/Scripts/pages/form-validation.js"></script>
 
-
+<script src="~/Scripts/plugins/select/selectr.min.js"></script>
 <!-- Datatables -->
 @*<script src="~/Scripts/plugins/tabulator/tabulator.min.js"></script>
     <script src="~/Scripts/plugins/tabulator/jspdf.min.js"></script>
@@ -539,6 +514,8 @@
 
 <script src="~/Scripts/plugins/sweet-alert2/sweetalert2.min.js"></script>
 <script src="~/Scripts/pages/sweet-alert.init.js"></script>
+<script src="~/Scripts/pages/forms-advanced.js"></script>
+<script src="~/Scripts/plugins/huebee/huebee.pkgd.min.js"></script>
 
 <script>
     $('document').ready(function () {
