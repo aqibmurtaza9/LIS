@@ -1,0 +1,110 @@
+﻿
+@{
+    ViewBag.Title = "LabRequestEntry";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            <h4 class="page-title">Lab Request</h4>
+        </div><!--end page-title-box-->
+    </div><!--end col-->
+</div>
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h4 class="card-title">Patient Detail</h4>
+                    </div><!--end col-->
+                </div>  <!--end row-->
+            </div><!--end card-header-->
+            <div class="card-body">
+                <div class="col-md-12 align-self-center">
+                    <form class="row row-cols-lg-auto g-2 align-items-center">
+                        <div class="col-12">
+                            <div class="input-group">
+                                @*<input type="text" class="form-control form-control-sm" id="Search_data" placeholder="search">*@
+                                <select id="default">
+                                    <option value="value-1">patient 1</option>
+                                    <option value="value-2">Patient 2</option>
+                                </select>                                
+                                @*<button type="button" class="btn btn-primary btn-sm"><i class="fas fa-search"></i></button>*@
+                            </div>
+
+                            <div class="input-group">
+                                <label class="col-lg-3 col-form-label text-end">Patient Id</label>
+                                <div class="col-md-6 mb-3">
+                                    <label class="col-lg-3 col-form-label" id="patientId"></label>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label class="col-lg-3 col-form-label text-end">Patient Name</label>
+                                <div class="col-md-6 mb-3">
+                                    <label class="col-lg-3 col-form-label" id="patientId"></label>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label class="col-lg-3 col-form-label text-end">Mobile Number</label>
+                                <div class="col-md-6 mb-3">
+                                    <label class="col-lg-3 col-form-label" id="mobileNumber"></label>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label class="col-lg-3 col-form-label text-end">Age</label>
+                                <div class="col-md-6 mb-3">
+                                    <label class="col-lg-3 col-form-label" id="age"></label>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label class="col-lg-3 col-form-label text-end">Blood Group</label>
+                                <div class="col-md-6 mb-3">
+                                    <label class="col-lg-3 col-form-label" id="bloodGroup"></label>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label class="col-lg-3 col-form-label text-end">Address</label>
+                                <div class="col-md-6 mb-3">
+                                    <label class="col-lg-3 col-form-label" id="address"></label>
+                                </div>
+                            </div>
+
+                        </div><!--end col-->
+                    </form>
+                </div>
+            </div><!--end card-body-->
+        </div><!--end card-->
+    </div><!--end col-->
+    <div class="col-12 col-lg-8 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h4 class="card-title">Lab Request</h4>
+                    </div><!--end col-->
+                </div>  <!--end row-->
+            </div><!--end card-header-->
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="mb-3">Test Code</label>
+                        <select id="multiSelect">
+                            <option value="value-1">Value 1</option>
+                            <option value="value-2">Value 2</option>
+                        </select>
+                    </div><!-- end col -->
+                    <div class="col-md-4">
+                        <label class="mb-3">Unit</label>
+                        <input type="text" id="unittext" class="form-control" />
+                    </div><!-- end col -->
+                    <div class="col-md-4">
+                        <label class="mb-3">Action</label><br />
+                        <i onclick="javascript: addnewrow();" class="fa fa-plus-circle" style="font-size:25px;color:black;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

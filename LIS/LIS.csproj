@@ -5095,6 +5095,7 @@
     <Content Include="Views\SubSection\SubSectionList.cshtml" />
     <Content Include="Views\LaboratorySetup\LaboratorySetupList.cshtml" />
     <Content Include="Views\LabRequest\LabRequestList.cshtml" />
+    <Content Include="Views\LabRequest\LabRequestEntry.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LISBusiness\LISBusiness.csproj">
